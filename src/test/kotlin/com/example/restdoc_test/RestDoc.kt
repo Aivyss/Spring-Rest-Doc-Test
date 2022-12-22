@@ -8,18 +8,25 @@ import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentati
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
+import org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup
+import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder
 import org.springframework.web.context.WebApplicationContext
 
 @ExtendWith(RestDocumentationExtension::class)
 open abstract class RestDoc {
 
-    protected lateinit var mockMvc: MockMvc
+    protected lateinit var restDocumentation: RestDocumentationContextProvider
 
     @BeforeEach
-    fun init(webApplicationContext: WebApplicationContext, restDocumentation: RestDocumentationContextProvider) {
-        mockMvc = MockMvcBuilders
-            .webAppContextSetup(webApplicationContext)
-            .apply<DefaultMockMvcBuilder>(documentationConfiguration(restDocumentation))
+    fun initRestDocumentation(restDocumentation: RestDocumentationContextProvider) {
+        this.restDocumentation = restDocumentation
+    }
+
+    fun mockMvc(controller: Any): MockMvc {
+        return  MockMvcBuilders
+            .standaloneSetup(controller)
+            .apply<StandaloneMockMvcBuilder>(documentationConfiguration(restDocumentation))
             .build()
+
     }
 }

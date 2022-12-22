@@ -1,3 +1,8 @@
+:toc: left
+:toclevels: 2
+:source-highlighter: highlightjs
+
+== test1 api
 Raw Request
 include::{snippets}/index/http-request.adoc[]
 RequestBody
@@ -7,3 +12,12 @@ include::{snippets}/index/request-body.adoc[]
 Response
 include::{snippets}/index/http-response.adoc[]
 
+== test2 api
+Raw Request
+include::{snippets}/index2/http-request.adoc[]
+RequestBody
+include::{snippets}/index2/response-fields.adoc[]
+include::{snippets}/index2/request-body.adoc[]
+
+Response
+include::{snippets}/index2/http-response.adoc[]
